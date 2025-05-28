@@ -29,14 +29,7 @@ const customersSchema = new Schema({
     name: {
       type: String,
       required: [true, 'Name is required'],
-      validate: {
-        validator: function (v){
-            return typeof v === 'string' && v.trim().length >0;
-        },
-        message: props => `${props.value} is not a valid name`
-      }
-     
-      }
+     }
     
 });
 
