@@ -25,7 +25,19 @@ const customersSchema = new Schema({
     age: {
         type: Number,   // Data type is Number.
         required: true  // The field is required and must have a value.
-    }
+    },
+    name: {
+      type: String,
+      required: [true, 'Name is required'],
+      validate: {
+        validator: function (v){
+            return typeof v === 'string' && v.trim().length >0;
+        },
+        message: props => `${props.value} is not a valid name`
+      }
+     
+      }
+    
 });
 
 // Creating a model from the schema. This model will represent the 'customers' collection in MongoDB.

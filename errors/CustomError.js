@@ -4,14 +4,14 @@
  * Represents an error that occur when validation fails
  * Inherits from the build-in error class.
  */
-class validationError extends Error{
+class ValidationError extends Error{
     constructor(message){
         //call the constructor of the parent class(Error)
         super(message);
 
         //Custom properties for the ValidationError
         this.code = 407;
-        this.name = "ValidationError"//custom error name
+        this.name = "validationError"//custom error name
     }
 }
 /**
@@ -44,4 +44,4 @@ class AuthenticationFailed extends Error{
         this.name = 'Authentication Failed';
         }
 }
-module.expports = {validationError,InvalidUserError,AuthenticationFailed};
+module.exports = {ValidationError,InvalidUserError,AuthenticationFailed};

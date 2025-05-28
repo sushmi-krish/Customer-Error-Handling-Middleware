@@ -9,7 +9,7 @@ const {ValidationError,InvalidUserError,AuthenticationFailed} = require('./error
 const app = express();
 
 // Setting the port number for the server
-const port = 3000;
+const port = 3001;
 
 // MongoDB connection URI and database name
 const uri =  "mongodb://root:IMDn9TEwRzlLFWhpgqRmcZmX@172.21.111.226";
@@ -57,11 +57,20 @@ app.post('/api/add_customer', async (req, res,next) =>
             throw new ValidationError("Customer Under required age limit");
 
         }
-        const Customer = new Customer({
+        const name = data['name'];
+        if(!name || typeof name !== 'string' || name.trim()===''){
+        throw new ValidationError("Invalid name: must be  string");
+        }
+        const existing = await Customers.findOne({user_name:data['user_name']});
+        if(existing){
+            throw new ValidationError("User already exits");
+        }
+        const customer = new Customers({
             "user_name": data['user_name'],
             "age":age,
             "password":data['password'],
-            "email":data['email']
+            "email":data['email'],
+            name: name.trim()
         });
         await customer.save();
 
